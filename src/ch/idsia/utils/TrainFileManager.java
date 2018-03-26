@@ -2,10 +2,8 @@ package ch.idsia.utils;
 
 import ch.idsia.benchmark.mario.environments.Environment;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class TrainFileManager {
@@ -269,6 +267,57 @@ public class TrainFileManager {
         }
         prevAction = actionMario;
         tick_aproximation++;
+    }
+
+    public void lecturaDatos(String ruta, int ticks) {
+        BufferedReader br = null;
+        FileReader fr = null;
+        boolean readData = false;
+        ArrayList<IBLInstance> IBLList = new ArrayList<IBLInstance>();
+
+        try {
+
+            //br = new BufferedReader(new FileReader(FILENAME));
+            fr = new FileReader(ruta);
+            br = new BufferedReader(fr);
+
+            String sCurrentLine;
+            System.out.println("IN");
+            sCurrentLine = br.readLine();
+            while (sCurrentLine != null) {
+                if (readData) {
+                    System.out.println(sCurrentLine);
+                    IBLList.add(new IBLInstance(sCurrentLine, "undefined"));
+                    /*TODO: delete if not neccessary*/
+                    System.out.println(IBLList.get(0).toString());
+                }
+                if (sCurrentLine.contains("@data")) readData = true;
+                sCurrentLine = br.readLine();
+            }
+            System.out.println("OUT");
+            System.out.println("----------------------------------------------------TICK " + ticks + "----------------------------------------------------");
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+
+                if (br != null)
+                    br.close();
+
+                if (fr != null)
+                    fr.close();
+
+            } catch (IOException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
     }
 
     /*Calcula la distanca euclidea entre dos celdas de la matriz*/
