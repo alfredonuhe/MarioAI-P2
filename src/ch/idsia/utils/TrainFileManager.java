@@ -274,28 +274,21 @@ public class TrainFileManager {
         FileReader fr = null;
         boolean readData = false;
         ArrayList<IBLInstance> IBLList = new ArrayList<IBLInstance>();
+        String sCurrentLine;
 
         try {
 
-            //br = new BufferedReader(new FileReader(FILENAME));
             fr = new FileReader(ruta);
             br = new BufferedReader(fr);
-
-            String sCurrentLine;
-            System.out.println("IN");
             sCurrentLine = br.readLine();
+
             while (sCurrentLine != null) {
                 if (readData) {
-                    System.out.println(sCurrentLine);
                     IBLList.add(new IBLInstance(sCurrentLine, "undefined"));
-                    /*TODO: delete if not neccessary*/
-                    System.out.println(IBLList.get(0).toString());
                 }
                 if (sCurrentLine.contains("@data")) readData = true;
                 sCurrentLine = br.readLine();
             }
-            System.out.println("OUT");
-            System.out.println("----------------------------------------------------TICK " + ticks + "----------------------------------------------------");
 
         } catch (IOException e) {
 

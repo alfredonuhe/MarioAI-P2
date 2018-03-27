@@ -28,13 +28,13 @@ public class IBLInstance {
         return this.instanceGroup;
     }
 
-    /*TODO: delete if not neccessary*/
     public String toString() {
-        String result = "instanceGroup: " + instanceGroup + ", attributeArray: [ ";
-        for (int i = 0; i < attributeArray.length; i++) {
-            result.concat('"' + attributeArray[i] + "\", ");
+        String result = "instanceGroup: " + this.instanceGroup + "\nattributeArray: [";
+        for (String anAttributeArray : this.attributeArray) {
+            result = result.concat("'" + anAttributeArray + "', ");
         }
-        result.concat("]");
+        result = result.substring(0, result.length() - 2);
+        result = result.concat("]");
         return result;
     }
 }
