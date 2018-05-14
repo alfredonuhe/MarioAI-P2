@@ -1,1 +1,0 @@
-compilar.bat && for /l %%x in (1, 1, 20) do ejecutar.bat P1TestAgent -vis off -ls %%x
